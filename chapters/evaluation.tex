@@ -1,0 +1,33 @@
+\chapter{Evaluation}\label{chap:eval}
+
+To evaluate the results we download all the disease names from MeSH~\footnote{\url{http://bioportal.bioontology.org/ontologies/MESH/?p=classes&conceptid=root}} and do a direct matching. In total there are $1615$ diseases identified in the NCBI disease corpus, when we try to find these terms in the disease names downloaded from MeSH, only $606$ were found which is approximately $37\%$ of the whole set. In the table~\ref{table: match} some examples are presented which were found in the MeSH ontology terms. 
+
+\begin{table}[ht]
+\caption{Examples of matches found}
+\label{table: match}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Annotated Disease Name & Exact Match using regex \\ \hline
+DM                     & DM                      \\ \hline
+breast cancer          & breast cancer           \\ \hline
+cancer                 & cancer                  \\ \hline
+tumor                  & tumor                   \\ \hline
+\end{tabular}
+\end{table}
+
+In the table~\ref{table:no_matches} some examples for no matches, whereas they were classified correctly using the deep learning classification model. 
+\begin{table}[ht]
+\caption{Examples of no match with correct classification}
+\label{table:no_matches}
+\begin{tabular}{|l|l|l|}
+\hline
+Annotated Disease Name    & No Match using regex      & Identified using NN \\ \hline
+pilomatricomas            & pilomatricomas            & Specific Disease    \\ \hline
+Mucopolysaccharidosis IVA & Mucopolysaccharidosis IVA & Specific Disease    \\ \hline
+inherited ataxias         & inherited ataxias         & Disease Class       \\ \hline
+mucosal lesions           & mucosal lesions           & Specific Disease    \\ \hline
+\end{tabular}
+\end{table}
+
+After looking at the no matches it can be seen that just a simple search and find brute force method would not give the best results. 

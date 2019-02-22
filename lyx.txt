@@ -1,0 +1,24 @@
+To use the Master's thesis template with Lyx, follow these steps:
+(with thanks to Philipp Hoppermann)
+
+1.  Get the reportMaster.cls from Eleum.
+2.  Create a folder "um-thesis" in /usr/share/texmf/tex/latex/ 
+3.  Copy reportMaster.cls to /usr/share/texmf/tex/latex/reportUMMasterAI.cls
+4.  Update Latex database: run "texhash" from command line 
+5.  Create reportUMMasterAI.layout in ~/.lyx/layouts, insert the following lines:
+    # \DeclareLaTeXClass[reportUMMasterAI]{report (UM Master AI Thesis)} Input report.layout 
+6.  Start LyX and choose "Tools" > "Reconfigure". Close Lyx.
+7.  Restart LyX. The new layout should be accessible in  "Document" > "Settings" > "Document class" as "report (UM Master AI Thesis)"
+8.  Add the following lines to your Latex preamble (in "Document" > "Settings"):
+    \title{Hide and Seek Games}
+    \author{P.G.A.M.G.\ Uyttendaele}
+    \id{DKE 09-16}
+    \nameMastersProgramme{Artificial Intelligence}
+    (or \nameMastersProgramme{Data Science for Decision Making})
+    \committee{Dr. F. Thuijsman \\ Dr. J. Derks}
+
+Note: The current date will be added automatically. Title and author can also be set in the document directly.
+
+Namings (e.g. reportUMMasterAI.cls) can of course be changed as desired. It should also be possible to place the .cls file in  ~/texmf/tex/latex/ if one does not have root privileges.
+
+
