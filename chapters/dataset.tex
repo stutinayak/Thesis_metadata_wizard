@@ -157,7 +157,8 @@ We get the following characteristics of the abstracts:
 \end{itemize}
 \paragraph{Text Preprocessing} The text is tokenized - converted into a list of words, and fit according to the size of the text, this converts the text into set of words which could be called tokens.
 Then these tokens are integer encoded - given a unique index, highest number being the size of the words. 
-Then we convert these words into a sequence which gives the words a unique identification number. Then we need to pad this sequence which means to give a cap so that the neural network knows what length of sequence to expect. For example - some sentences will be less than 200 lets say 155, so we insert 45 zeros to make it 200. Some might be bigger say 220, so we remove last 20. 
+Then we convert these words into a sequence which gives the words a unique identification number. Then we need to pad this sequence which means to normalize the sequences into a maximum length, so that the neural network knows what length of sequence to expect. 
+%For example - some sentences will be less than 200 lets say 155, so we insert 45 zeros to make it 200. Some might be bigger say 220, so we remove last 20. 
 
 %\paragraph{Label Matrix} To construct a label matrix we need to create a one-hot encoded matrix of the size of the labels we have. In this context the labels are disease names, for example if we have 3 diseases the encoded vectors would be in the form of the Table~\ref{table:one_hot}. 
 
@@ -174,39 +175,6 @@ Then we convert these words into a sequence which gives the words a unique ident
 %\end{tabular}
 %\end{table}
 
-\section{Baseline Multi-label Classification}\label{MLtranform}
-Classification problem is essentially categorizing the input data into a set of labels. The number of labels entails the different kinds of classification problems. For example: if the number of labels $|L| = 2$ then the problem is called binary classification, for $|L| > 2$ labels the problem becomes a multi-class classification. The problem of multi-label classification similarly deals with more than one label, but each label is considered as a different classification problem, but these problems are somewhere related to each other. On the contrary, in a multi-class classification the labels are mutually exclusive~\cite{tsoumakas2007multi}. For instance in a multi-class problem would consider that a scientific publication would only talk about one out of several diseases. Whereas in a multi-label classification the scientific publication might talk about several diseases or none diseases at all. 
-In order to use the traditional classification techniques like Random Forest Classifier, Decision trees and so on, the problem needs to be transformed in a way that these techniques can be used. In this project we use three transformation techniques (i) Binary Relevance, (ii) Label Powerset and (iii) Classifier Chains. 
-\paragraph{Binary Relevance (BR)} 
-This transformation converts the multi-label problem into a single label problem for each label. Once these problems are solved, a union is taken for all the classes which is the output of the problem. In simpler words, this problem solves a binary classification for each label with any classifier picked as seen in Figure~\ref{fig:BR}. The major disadvantage in this approach is that it does not take label dependencies into account. 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.5]{Figures/BinaryRelevance.png}
-    \caption{Multi-label problem transformation - Binary Relevance}
-    \label{fig:BR}
-\end{figure}
-
-\paragraph{Label Powerset (LP)} 
-In this problem transformation, a multi-label problem is converted into a single multi-class problem which can take many values. It takes the labels $y_1, y_2, ...., y_n$ (refer Figure~\ref{fig:LP}) and makes several combinations of these labels and solves a multi-class problem for every such combination. This method computes a large space of classes. In total it solves $2^{|L|}$ such problems where $|L|$ is the number of labels. 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.5]{Figures/LabelPowerset.png}
-    \caption{Multi-label problem transformation - Label Powerset}
-    \label{fig:LP}
-\end{figure}
-
-\paragraph{Classifier Chains (CC)}
-Classifier chains~\cite{dembczynski2010bayes, read2011classifier} are an improvement in the BR transformation, which takes into account the dependency between the labels if there exists any. Let's say the feature set is: ($x_1, x_2, x_3,....., x_n$) and the set of labels is: ($y_1, y_2, y_3,\ldots, y_n$). The initial feature set is used to predict $y_1$, after that ($x_1, x_2, x_3,\ldots, x_n, y_1$) is used to predict $y_2$. At $n^{th}$ step, feature set ($x_1, x_2, x_3,\ldots, x_n, y_1, y_2, y_3,\ldots, y_{n-1} $) predicts $y_n$ (refer Figure~\ref{fig:CC}). The order of prediction can be tuned in order to get better results. For a large set of labels this method is slow as it takes $n!$ combinations of orderings. 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.5]{Figures/ClassifierChains.png}
-    \caption{Multi-label problem transformation - Classifier Chains}
-    \label{fig:CC}
-\end{figure}
-
-
-\paragraph{Multi-label k Nearest Neighbours (MLkNN)} 
-Another adaptation of k nearest neighbours(kNN) for multi-label classification was done by~\cite{zhang2007ml}. In kNN assigns the most commonly occurring neighbours among the calculated k `nearest neighbours'. Whereas in MLkNN, the labels assigned are the most common labels in the neighbourhood of k nearest neighbours. In simpler terms, given a test set, MLkNN uses kNN to find nearest examples and uses Bayesian Inference to predict the labels. 
 
 %\subsection{Feature Selection}
 %For feature selection a Term frequency-inverse document (TF-IDF) approach is used. For each document, a weight is assigned to each term which is essential the number of times the that term occurs in the document (i.e. frequency of the term.)

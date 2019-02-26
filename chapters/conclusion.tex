@@ -3,16 +3,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %third para - limitations 
 %1. less gold standard 2. less number of annotated  abstracts 3. synthetic class problem 
-%4th para: future work: can be applied to other key types if we have annotated corpuses availble
+%4th para: future work: can be applied to other key types if we have annotated corpuses available
 %mention RQ4 and RQ5 further experimentation can be done by using full text to see if it would help in increasing accuracy
 % Further NN should be able to identify other key types that is why we are trying to use the multiclass classification.
 
 %last para: if solved this would help in increasing the metadata quality
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this thesis project, we focus on the research problem of automatically predicting experimental metadata using scientific publications. In chapter~\ref{chap:intro} we talk about introduce the context of the problem and the motivation behind solving this problem. To make data reusable we need to assess the quality of metadata, and we hypothesize that using scientific publications for prediction of experimental metadata would help with assessing this quality. We also formalize five research question toward answering this vast research problem. 
+In this thesis project, we focus on the research problem of automatically predicting experimental metadata using scientific publications. In chapter~\ref{chap:intro} we introduce the context of the problem and the motivation behind solving this problem. To make data reusable we need to assess the quality of metadata, and we hypothesize that using scientific publications for prediction of experimental metadata would help with assessing this quality. We also formalize five research questions toward answering this vast research problem. 
 
-We started with looking gold standard annotated datasets, which use standard vocabulary so that we can train a model with that dataset. We started with the metadata key ``disease'', as we found a corpus - NCBI disease corpus (refer Section~\ref{section:data}). We trained this data on mainly used two architectures - CNN and BiLSTM. We perform two different kind of experiments with these two architectures (i) first we predict the disease names by using their unique ID in the MeSH ontology and (ii) second, we use the tree structure of MeSH ontology to move up in the hierarchy of the these disease terms which reduces the number of labels. We also perform various baseline multi-label classification techniques for the above mentioned two experiments. We used two different feature extraction techniques for these baseline classifiers - (i) TF-IDF and  (ii) Bag of Words. 
+We started with looking annotated datasets, which use standard vocabulary so that we can train a model with that dataset. We started with the metadata key ``disease'', as we found a corpus - NCBI disease corpus (refer Section~\ref{section:data}). We trained this data on mainly used two architectures - CNN and BiLSTM. We perform two different kind of experiments with these two architectures (i) first we predict the disease names by using their unique ID in the MeSH ontology and (ii) second, we use the tree structure of MeSH ontology to move up in the hierarchy of the these disease terms which reduces the number of labels. We also perform various baseline multi-label classification techniques for the above mentioned two experiments. We used two different feature extraction techniques for these baseline classifiers - (i) TF-IDF and  (ii) Bag of Words. 
 %We formulate the research questions. 
 %\begin{itemize}
 %    \item RQ2: Which specific metadata keys (e.g. disease, age, organism) can be accurately predicted?
@@ -25,11 +25,18 @@ In chapter~\ref{chap2} we discussed the literature survey - related work done cl
 
 \section{Conclusions}\label{sec:conclusion}
 We select the metadata key \emph{disease} for prediction as it is very essential and relevant in biomedical domain. We used the NCBI disease corpus, to predict the disease names using 793 PubMed abstracts. We used GLoVE word embedding to train the CNN and BiLSTM. We compared our method with baseline multi-label classification methods, with two different types of feature extraction techniques. Overall, the CNN model perform the best among all the methods that were used for prediction. Now we answer all the research questions that were outlined in Chapter~\ref{chap:intro}.
+\begin{itemize}
+    \item RQ1: Up to what extent can we predict metadata from scientific publications?
+    \item RQ2: Which specific metadata fields can be accurately be predicted?
+    \item RQ3: What are the optimal set of features that should be selected for the machine learning algorithm to accurately predict metadata fields or the prediction is better without employing features at all?
+    \item RQ4: Which is the best automated (machine learning/deep learning) method to predict metadata?
+    \item RQ5: To what extent does the accuracy improves when we use abstract and full text?
+\end{itemize}
 
 \subsection{Research Question 1 \& 2}
 In this project we only look at the prediction of metadata key type `disease'. We performed two different type of experiments (i) Predicting disease names and (ii) predicting super classes of disease names (refer Chapter~\ref{chap: results}). In the first experiment we saw that CNN performed best with $\approx$30\% accuracy, but when it comes to predicting the super classes the CNN gave a very high accuracy of $\approx$80\%. This is a promising result, which can be employed when we try to predict more than one metadata key types. 
 
-Since we used a limited number of abstracts and to predict the disease names, we did not get a better results in the first experiment. If we had a larger dataset the accuracy could be higher even with predicting specific disease names rather than predicting the super classes. 
+Since we used a limited number of abstracts therefore, to predict the disease names we did not get a better results in the first experiment. With a larger dataset, the model sees would be able to see a larger set of examples while training which in-turn would provide better results.
 
 \subsection{Research Question 3 \& 4}
 We used baseline multi-label classification with two different feature extraction techniques - bag of words and TF-IDF. We saw that the TF-IDF feature extraction technique worked better when predicting the disease terms, but the bag of words technique worked better when predicting super classes (refer Chapter~\ref{chap: results}). The results might improve if we did some more in-depth feature engineering, but even with that it is unlikely that the performance exceeds the CNN.
@@ -37,17 +44,21 @@ We used baseline multi-label classification with two different feature extractio
 From the results we saw that rather than following the traditional methods of extracting features in the dataset and then select a machine learning model, if we use a pre-trained word embedding we get better results. In this case we used GloVe: Global Vectors for Word Representation~\cite{pennington2014glove}. 
 
 \subsection{Research Question 5}
-In this project we did not include the full-text articles when performing experiments. In biomedical field a lot of articles hide behind the paycheck walls. One would need to filter our the full access articles which would be very time consuming.  
+In this project we did not include the full-text articles when performing experiments. In the biomedical field a lot of articles hide behind paycheck walls. One would need to filter our the full access articles which would be very time consuming.  
 \\
 
-In conclusion, we saw that traditional methods of performing feature engineering does not perform best when it comes to natural language processing. We would need a numerous number of rules to cover all the ambiguities in the language. For example: ``I scream" vs. ``ice cream" - unionized = ``union” + ``ized” or ``un” + ``ionized”~\footnote{Examples from \url{http://www.cs.cornell.edu/courses/cs674/2003sp/history-4up.pdf}}. Additionally we would always need different set of rules when dealing data from different domains, which wouldn't be a trivial task. These methods require more time, cost and a lot of manual effort. 
+In conclusion, we saw that traditional methods of performing feature engineering does not perform best when it comes to natural language processing. We would need a numerous number of rules to cover all the ambiguities in the language. For example: Phoetics and Phonology - ``I scream" vs. ``ice cream", Morphology -- unionized = ``union” + ``ized” or ``un” + ``ionized”, Discourse -- Merck \& Co. formed a joint venture with Ache Group, of Brazil. \textbf{It}
+will be called Prodome Ltd.~\footnote{Examples from \url{http://www.cs.cornell.edu/courses/cs674/2003sp/history-4up.pdf}}. 
+Additionally we would always need different set of rules when dealing data from different domains, which wouldn't be a trivial task. These methods require more time, cost and a lot of manual effort. 
 
-On the contrary when we use deep learning we don't have to provide feature specifically, the model learns the features on it's own. Therefore, using pre-trained word embeddings gives the idea of a language model to the network, this is where it also learns context and ambiguities. Hence when we want to predict various metadata keys in the future a deep learning model would be a promising technique to move further. 
+On the contrary when we use deep learning we don't have to provide feature specifically, the model learns the features on its own. Therefore, using pre-trained word embeddings give the idea of a language model to the network, this is where it also learns context and ambiguities. Hence when we want to predict various metadata keys in the future a deep learning model would be a promising technique to move further. 
 
 \section{Limitations and Future Work}\label{sec:futurework}
-A major limitation to this problem is the availability of a large gold standard dataset in which a model could be trained on. We need a large annotated dataset which could be used to train a model which could then be used to predict metadata keys and values. In this project we used a limited amount of data to train the model, even though we got decent results for super class prediction, but this specific could not be generalized for other metadata key types unless we find a similar annotated dataset for other key types. 
+A major limitation to this problem is the availability of a large gold standard dataset in which a model could be trained on. We need a large annotated dataset which could be used to train a model which could then be used to predict metadata keys and values. 
+The corpus that was used for this project had a limited amount of abstracts with only disease mentions that were annotated - which is the reason the poor results for predicting disease terms. 
+%In this project we used a limited amount of data to train the model, even though we got decent results for super class prediction, but this specific could not be generalized for other metadata key types unless we find a similar annotated dataset for other key types. 
 
-As a part of future work, we could add predictions for more than one metadata key types like organism, tissue, cell line etc. A more context specific word embeddings could be used to check whether this would help improve the predictions of the metadata. Transfer learning could be used - ``Transfer learning and domain adaptation refer to the situation where what has been learned in one setting - is exploited to improve generalization in another setting~\cite{Goodfellow-et-al-2016}''. A transfer learning approach could be used - train the model on a large annotated corpus and test in on the NCBI disease corpus. 
+As a part of future work, we could add predictions for more than one metadata key types like organism, tissue, cell line etc. A more context specific word embeddings could be used in the deep learning architecture that we used to check whether this would help improve the predictions of the metadata. Transfer learning could be used - ``Transfer learning and domain adaptation refer to the situation where what has been learned in one setting - is exploited to improve generalization in another setting~\cite{Goodfellow-et-al-2016}''. A transfer learning approach could be used - train the model on a large annotated corpus and test in on the NCBI disease corpus. 
 
 
 
