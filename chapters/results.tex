@@ -241,22 +241,22 @@ decreases. The models are trained using the Adam optimizer~\cite{kingma2014adam}
 
 \begin{table}[!htb]
     \centering
-    \begin{tabular}{|l|c|c|c|}
+\begin{tabular}{|l|c|c|}
 \hline
-\multicolumn{1}{|c|}{} & \textbf{Epochs} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sequence\\  Length\end{tabular}} \\ \hline
-\textbf{BiLSTM} & 65 & 0.623 & 200 \\ \hline
- & 65 & 0.628 & 150 \\ \hline
- & 65 & \textit{\textbf{0.697}} & 250 \\ \hline
-\textbf{CNN} & 60 & \textit{\textbf{0.837}} & 200 \\ \hline
- & 60 & 0.76 & 150 \\ \hline
- & 60 & 0.803 & 250 \\ \hline
+\multicolumn{1}{|c|}{} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sequence\\  Length\end{tabular}} \\ \hline
+\textbf{BiLSTM} & 0.623 & 200 \\ \hline
+ & 0.628 & 150 \\ \hline
+ & \textit{\textbf{0.697}} & 250 \\ \hline
+\textbf{CNN} & \textit{\textbf{0.837}} & 200 \\ \hline
+ & 0.76 & 150 \\ \hline
+ & 0.803 & 250 \\ \hline
 \end{tabular}
     \caption{Results for deep neural networks for predicting super class}
     \label{tab:DLsuperclass}
 \end{table}
 
 Here both the BiLSTM and CNN outperform all the baseline classifiers. Overall, the CNN has highest performance accuracy with the sequence length of 200. Another interesting observation is that when the sequence length is increased to 250 the accuracy of the BiLSTM increases, whereas one would think it should decrease because LSTMs tend to forget what happened previously or ahead when the sequence length is increased. 
-%One explanation behind this could be that the disease words occur towards the end in the abstract. 
+One explanation behind this could be that the disease words occur towards the end in the abstract. When we use the last two sentences per abstract for predicting the super class in BiLSTM the accuracy decreases to 48.4\%. Therefore, a generalization of such kind cannot be made. 
 
 \begin{table}[!htb]
     \centering
@@ -341,12 +341,17 @@ Abstract 3 & [ ] & \begin{tabular}[c]{@{}l@{}}`Immune System Diseases', `Hemic a
     \label{tab:preidictions_lstm}
 \end{table}
 
-The predictions of the three abstracts are presented in Tables~\ref{tab:predictions_cnn} and~\ref{tab:preidictions_lstm}. From the predictions it can be seen when we use a large number of labels in most of abstract there is no prediction at all fo both CNN and BiLSTM. For this we need a larger data for the models to train on. If we get a larger annotated set, the model will be able to learn in a much better way as it would have seen a lot of examples for such a large set of labels.  
+The predictions of the three abstracts are presented in Tables~\ref{tab:predictions_cnn} and~\ref{tab:preidictions_lstm}. From the predictions it can be seen when we use a large number of labels in most of abstract there is no prediction at all for both CNN and BiLSTM. For this we need a larger data for the models to train on. If we get a larger annotated set, the model will be able to learn in a much better way as it would have seen a lot of examples for such a large set of labels.  
 
 Whereas when predicting a super class CNN is very accurate as it would have seen enough examples to learn which label would fit where. Similarly, BiLSTM is accurate more than 50\% of times overall even in some cases where CNN isn't, for example in Abstract 3. This could be because in this case the context of the language would be required more rather than in the other cases. For example: the abstract 3 talks about immune system diseases so in this case the BiLSTM learns this whereas the CNN would not be able to do that.  
 In some cases, no result comes because the last layer is softmax layer and the probability of each category would be less than 0.5, so the model does not output any disease.
 
-From the results we saw that CNN gives promising results in both experimental setups - predicting disease terms and predicting super classes. If we want to involve more metadata categories like tissue, cell line etc, it would be easily incorporated in the model as we train a multi-label classification problem. 
+For evaluate whether there is any bias present in the predictions for super classes, we perform an analysis of the frequency of the labels. First we compute the frequency of each label for the whole dataset, then specifically for the validation set. This is done for both the CNN and BiLSTM. 
+From the analysis, it was observed that the super class ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities'' has the highest frequency of occurrence (639). Therefore, even in the validation set for CNN and for BiLSTM both, it has the highest frequency. Note that in the validation set, the frequency is calculated separately for predictions and the actual labels. In the predictions the frequency was 139 whereas in the actual labels it occurs 125 times for BiLSTM. Similarly, for CNN the frequency in actual labels was 144 whereas the frequency is 126 in the predicted labels. From the frequency we observe that the model predicts better if the label has higher number of occurrences. 
+
+We perform a similar analysis for the less frequently occurring labels: ``Bacterial Infections and Mycoses''. This label has a frequency of 23 in the entire label set. After looking into the validation set for both CNN and BiLSTM, we observed that in CNN it is predicted 7 times but actually it occurs only once. For BiLSTM, it is predicted only once, but in actual labels it has a frequency of 7. Since the overall occurrence of ``Bacterial Infections and Mycoses'' is not higher the predictions are not as accurate as we observe before with the label ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities''.  
+
+From this analysis we see that a large set of disease names has one particular super class therefore there is a bias when we try to predict these super classes. Moreover, the input corpus contains 793 abstracts in total, which only gives a particular subset of diseases. Hence there is a bias in prediction related to the frequency of occurrences when extracting the super classes. From the results we saw that CNN gives promising results in both experimental setups -- predicting disease terms and predicting super classes. If we want to involve more metadata categories like tissue, cell line etc, it would be easily incorporated in the model as we train a multi-label classification problem. 
 
 
 

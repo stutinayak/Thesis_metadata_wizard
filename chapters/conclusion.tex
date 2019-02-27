@@ -39,7 +39,8 @@ In this project we only look at the prediction of metadata key type `disease'. W
 Since we used a limited number of abstracts therefore, to predict the disease names we did not get a better results in the first experiment. With a larger dataset, the model sees would be able to see a larger set of examples while training which in-turn would provide better results.
 
 \subsection{Research Question 3 \& 4}
-We used baseline multi-label classification with two different feature extraction techniques - bag of words and TF-IDF. We saw that the TF-IDF feature extraction technique worked better when predicting the disease terms, but the bag of words technique worked better when predicting super classes (refer Chapter~\ref{chap: results}). The results might improve if we did some more in-depth feature engineering, but even with that it is unlikely that the performance exceeds the CNN.
+We used baseline multi-label classification with two different feature extraction techniques - bag of words and TF-IDF. We saw that the TF-IDF feature extraction technique worked better when predicting the disease terms, but the bag of words technique worked better when predicting super classes (refer Chapter~\ref{chap: results}). 
+%The results might improve if we did some more in-depth feature engineering, but even with that it is unlikely that the performance exceeds the CNN.
 
 From the results we saw that rather than following the traditional methods of extracting features in the dataset and then select a machine learning model, if we use a pre-trained word embedding we get better results. In this case we used GloVe: Global Vectors for Word Representation~\cite{pennington2014glove}. 
 

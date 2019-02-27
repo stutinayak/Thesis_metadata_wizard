@@ -58,7 +58,7 @@ Another adaptation of k nearest neighbours(kNN) for multi-label classification w
 (where $c_{j,x} :=$ the number of number of examples present in the neighbourhood of $x$ with $y_j = 1$; Probabilities calculated from the training data)
 
 \paragraph{Decision Trees (DT)}
-A decision tree use tree structure perform classification. In such a tree (i) each interior node tests one attribute, (ii) every branch corresponds to an attribute and (iii) each leaf node is the labelled with the class i.e. label/category. A classification using decision tree is presented in Listing~\ref{DT}.
+A decision tree use tree structure perform classification. In such a tree (i) each interior node tests one attribute, (ii) every branch corresponds to an attribute and (iii) each leaf node is the labelled with the class i.e. label/category. A classification using decision tree is presented in Listing~\ref{DT}. It is a strategy for approximating discrete-esteemed capacities that is powerful to load information and equipped for learning disjunctive expressions. The group of decision tree learning calculation incorporates generally utilized calculation, for example, ID3~\cite{quinlan1986induction}, CART~\cite{breiman2017classification} and C4.5~\cite{xiaoliang2009research}. These decision tree learning techniques seek totally expressive speculation space and hence keep away from the troubles of limited theory spaces. Their inductive inclination is an inclination for little trees over substantial trees. 
 \begin{lstlisting}[caption = Classification with Decision Trees, label = DT]
 Classify(x: instance, node: variable containing a node of DT)
     if node is a classification node then
@@ -69,7 +69,7 @@ Classify(x: instance, node: variable containing a node of DT)
 
 \end{lstlisting}
 
-It is a strategy for approximating discrete-esteemed capacities that is powerful to load information and equipped for learning disjunctive expressions. The group of decision tree learning calculation incorporates generally utilized calculation, for example, ID3~\cite{quinlan1986induction}, CART~\cite{breiman2017classification} and C4.5~\cite{xiaoliang2009research}. These decision tree learning techniques seek totally expressive speculation space and hence keep away from the troubles of limited theory spaces. Their inductive inclination is an inclination for little trees over substantial trees. 
+
 
 %\todo{still to add brief description about random forest and MLP}
 \paragraph{Random Forest}
@@ -79,7 +79,7 @@ All in all, decision trees are famous for machine learning assignments. In a ran
 
 \paragraph{Multi-layer perceptron (MLP)}
 Although neural networks are also explained in Section~\ref{section:architecture}, we define MLP here as we use it as a baseline classifier. 
-Multilayer feed forward networks, an essential class of neural networks~\cite{haykin1994neural}. Typically, the system comprises of a lot of tangible unit (source hubs) that establish the info layer, one or increasingly concealed layers of computational nodes, and a yield layer of calculation nodes. The input flag engenders through the system in a forward direction, on a layer-by-layer basis.These neural systems are regularly alluded to as multilayer perceptrons (MLPs), which speak to a speculation of the single-layer perceptron. 
+Multilayer feed forward networks, an essential class of neural networks~\cite{haykin1994neural}. Typically, the system comprises of a lot of tangible unit (source hubs) that establish the info layer, one or increasingly concealed layers of computational nodes, and a yield layer of calculation nodes. The input flag engenders through the system in a forward direction, on a layer-by-layer basis. These neural systems are regularly alluded to as multilayer perceptrons (MLPs), which speak to a speculation of the single-layer perceptron. 
 
 Multilayer perceptrons have been connected effectively to tackle some troublesome and differing issues via preparing them in an administered way with a profoundly prominent calculation known as back-engendering calculation. 
 A multilayer perceptron has three particular qualities: 
@@ -90,7 +90,7 @@ A multilayer perceptron has three particular qualities:
 
     \item The system displays high degrees of connectivity, determined by the neural connections of the system. 
 \end{enumerate}
-It is through the mix of these attributes together with the capacity to gain as a matter of fact through preparing that the multilayer perceptron determines its registering power.
+It is through the mixture of these attributes together with the capacity to gain as a matter of fact through preparing that the multilayer perceptron determines its registering power.
 
 \section{Deep Learning}
 The advent of deep neural networks (deep nets) in the last decade or so has led to foundation for generic alternatives to supervised learning, especially for the task of object classification. Deep nets eliminate the laborious process of feature engineering and automatically learn high level representations of input which suites best for the underlying classification problem. Although, the resurgence of deep nets was initially meant for the field of computer vision, recently it has also been applied to natural language processing tasks (NLP)\cite{bengio2003neural, collobert2008unified, mikolov2013distributed} especially through learning distributed representations of words as vectors in high dimensional space. These vectors help the model in guiding elementary tasks such as part-of-speech (POS) tagging and parsing as well as abstract tasks such as text classification and machine translation. Typically, the novel deep learning approaches for text classification rely on architectures based on convolutional neural networks (CNNs) or recurrent neural networks (RNNs)~\cite{young2018recent}. In Figure \ref{fig:dlarch}, you can see a typical deep learning based text classification architecture pipeline.
@@ -129,7 +129,7 @@ A word embedding $\mathcal{W} : \text{words} \rightarrow \mathbb{R}^n$ is a para
 \begin{figure}[!htb]
     \centering
     \includegraphics[scale=0.5]{Figures/word-embedding-matrix.png}
-    \caption{The figure illustrates how to obtain embedding of a particular word \emph{"cat``} from a word embedding matrix. The one-hot encoding vector of the word \emph{"cat``} is multiplied to the word embedding matrix to obtain the embedding vector for \emph{cat}.}
+    \caption{The figure illustrates how to obtain embedding of a particular word \emph{``cat"} from a word embedding matrix. The one-hot encoding vector of the word \emph{``cat"} is multiplied to the word embedding matrix to obtain the embedding vector for \emph{cat}.}
     \label{fig:word-embedding-matrix}
 \end{figure}
 
@@ -137,7 +137,7 @@ A word embedding $\mathcal{W} : \text{words} \rightarrow \mathbb{R}^n$ is a para
 \begin{figure}[!htb]
     \centering
     \includegraphics[scale=0.5]{Figures/Mikolov-GenderVecs.png}
-    \caption{The difference between male-female vector is constant. That is, $\mathcal{W}(``\text{woman}") - \mathcal{W}(``\text{man}") \simeq \mathcal{W}(``\text{aunt}") - \mathcal{W}(``\text{uncle}") \simeq \mathcal{W}(``\text{queen}") - \mathcal{W}(``\text{king}")$ (Image Source~\cite{mikolov2013distributed}).}
+    \caption{This figure illustrates the property of word embeddings where linear vector differences between male-female vector is preserved, that is, constant. That is, $\mathcal{W}(``\text{woman}") - \mathcal{W}(``\text{man}") \simeq \mathcal{W}(``\text{aunt}") - \mathcal{W}(``\text{uncle}") \simeq \mathcal{W}(``\text{queen}") - \mathcal{W}(``\text{king}")$ (Image Source~\cite{mikolov2013distributed}).}
     \label{fig:linear-vector}
 \end{figure}
 
@@ -152,7 +152,7 @@ The basic computational unit of a NN is a neuron (refer Figure~\ref{fig:neuron})
 \begin{figure}[!htb]
     \centering
     \includegraphics[scale=0.6]{Figures/neuron.png}
-    \caption{Neuron}
+    \caption{Typical neuron in a neural network, which can be intuitively thought of a building block of the underlying neural network.}
     \label{fig:neuron}
 \end{figure}
 \begin{figure}[!htb]
@@ -161,7 +161,7 @@ The basic computational unit of a NN is a neuron (refer Figure~\ref{fig:neuron})
     \caption{Vector inputs in the neuron}
     \label{fig:vectorinputs}
 \end{figure}
-\todo{include weight vector W in figure}
+%\todo{include weight vector W in figure}
 Each output from this neuron consists of an associated weight ($w$), which is calculated according to the relative importance with respect to other inputs. The node applies a weighted function to the sum of inputs.
 
 The intention behind the network is to learn these set of weights and to be able to control the strength and the influence of these parameters according to the problem that is being solved using the NN approach. We control such an effect of the parameters using an activation function which should be associated to a neuron. Using this function, the node computes the output given a set of inputs. One such activation function is Sigmoid: $\sigma(x) = \frac{1}{1+e^{-x}}$. A parameterized sigmoid function is $\sigma_{w,b}(x) = \frac{1}{1+e^{-wx+b}}$. The advantage of using a non-linear activation function such as sigmoid is that these networks are able to solve non-trivial problems using a relatively smaller number of parameters. 
@@ -170,18 +170,18 @@ There are also other types of non-linear activation functions such as: hyperboli
 %One limitation of the linear classification like linear regression or logistic regression is that it is not able to detect any correlation between two input variables. NNs are used to perform non-linear classification tasks, 
 %For example gradient descent which is a derivative of a linear function gives a smooth function, as nonlinear functions are a generalization of linear functions, 
 %see clearly in Figure~\ref{fig:linearclassification} and~\ref{fig:nonlinearclassification}. The neural network which uses a sigmoid function as their activation to perform computations $\sigma(x) = \frac{1}{1+e^{-x}}$, similarly a parameterized sigmoid function is: $\sigma_{w,b}(x) = \frac{1}{1+e^{-wx+b}}$ is shown in Figure~\ref{fig:neuron}. The inputs are given in the form of vectors (refer Figure~\ref{fig:vectorinputs}), if the network contains more than one layers, the composite functions are used to calculate the outputs. Other functions than sigmoid as activation like hyperbolic tangent  ($tanh$), Rectified Linear Unit($ReLU$) etc. 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.2]{Figures/non-linear_classification.png}
-    \caption{A Linear Classification}
-    \label{fig:linearclassification}
-\end{figure}
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.2]{Figures/linear_classification.png}
-    \caption{A Non-linear Classification}
-    \label{fig:nonlinearclassification}
-\end{figure}
+% \begin{figure}[!htb]
+%     \centering
+%     \includegraphics[scale=0.2]{Figures/non-linear_classification.png}
+%     \caption{A Linear Classification}
+%     \label{fig:linearclassification}
+% \end{figure}
+% \begin{figure}[!htb]
+%     \centering
+%     \includegraphics[scale=0.2]{Figures/linear_classification.png}
+%     \caption{A Non-linear Classification}
+%     \label{fig:nonlinearclassification}
+% \end{figure}
 
 In a neural network architecture there are layers which are classified into three type which are mentioned below, all these layers contain nodes which are interconnected to each other in a dense manner also shown in Figure~\ref{fig:nn}:
 \begin{itemize}
@@ -196,66 +196,69 @@ In a neural network architecture there are layers which are classified into thre
     \label{fig:nn}
 \end{figure}
 
-While training the neural networks we need to see how every parameter effects on the performance. For this purpose we calculate the model performance using loss function also known as \emph{loss function}. A loss function is the difference between the model output ($\hat{Y}$) and the given label (Y) for a data point for example one of the ways is using mean square error method. 
+While training the neural networks we need to see how every parameter effects on the performance. For this purpose, we calculate the model performance using the function known to us as \emph{loss function}. A loss function is the difference between the model output ($\hat{Y}$) and the given label (Y) for a data point. For instance, one such loss function is mean square error method and is written as, 
 \begin{equation}
     L(\hat{Y},Y) = \frac{1}{2n}\sum_{i=1}^{n}(\hat{y}-y)^2
 \end{equation}
 Given enough hidden units (neurons), a two layered neural network that can approximately imitate any continuous function, over a wide range of activation functions. Although the challenge is to find right values of the parameters given the input data. This is where backpropagation comes into practice. 
-Backpropagation is done using gradient descent. The error gradient is calculated w.r.t. model parameters for each parameter. The parameters are changed in such a way that the parameters point in that direction where errors are increasing. 
+We know from high school calculus that for a function $y = f(x)$, $f'(x)$ or $\frac{dy}{dx}$ is an indicative of modifying the value of $x$, where the objective is to minimize $y = f(x)$. That is, in order to reduce $f(x)$, we have to modify $x$ in small steps with an opposite direction of the sign of $f'(x)$--this is gradient descent. Backpropagation is done using gradient descent. The gradients are calculated w.r.t. model parameters for each parameter. The parameters are modified in such a way that the parameters point in that direction where loss is decreasing. The parameters (weights) are modified using the following formulation, where $\eta$ (positive scalar) is a hyperparameter known as learning rate of the neural network model (determines how big a step to take in the direction opposite to the gradient)
 \begin{equation}
-    w_{n} = w_{n} - \eta\frac{dL}{dw_{n}}
+    w_{n}^{(t+1)} = w_{n}^{(t)} - \eta\frac{dL}{dw_{n}^{(t)}}
     \label{eq:parameterupdate}
 \end{equation}
 
-Summarizing from Figure~\ref{fig:oneepoch}, we give the input data $x$ to the neural network, $y$ is the input label of the data and $f_w(x)$ is the model which gives the output $\hat{y}$ ($\hat{y} = f_w(x)$). After this loss is calculated: $L(\hat{y}, y)$. This is the forward propagation. 
-Now in the backward  propagation: we calculate gradients $\frac{dL}{dW_{1:n}}$. Then the parameters are updated using the Equation~\ref{eq:parameterupdate}. 
+Summarizing from Figure~\ref{fig:oneepoch}, we give the input data $x$ to the neural network, $y$ is the input label of the data and $f_W(x)$ is the model which gives the output $\hat{y}$ ($\hat{y} = f_W(x)$). After this loss is calculated: $L(\hat{y}, y)$. This is the forward propagation. 
+Now in the backward  propagation: we calculate gradients $\frac{dL}{dW_{1:n}}$. Then the parameters are updated using the Equation~\ref{eq:parameterupdate} in each epoch. 
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{Figures/back-propagation.png}
-    \caption{A forward and backward pass in the neural network}
+    \caption{A forward and backward propagation in the neural network.}
     \label{fig:oneepoch}
 \end{figure}
 
 
+\subsubsection{CNN}\label{sec:cnn}
+Convolutional neural networks are a special kind of neural networks which employ a grid-like operation. The name ``convolution'' is used because it uses the mathematical operation convolution. In simple words: in a CNN convolution operation is used in at least one of the layers in place of general matrix multiplication~\cite{Goodfellow-et-al-2016}.
+They are widely used in the context of images~\cite{krizhevsky2012imagenet} where images are consider 2-D grid of pixels. Although, the architecture can be used if sentences or paragraphs or documents can be represented as matrices or vectors, as it is the case in images. Word embedding matrices typically act as pixel matrices of images in the context of text classification. One of the reasons as to why CNNs are successful is because of its inherent property of keeping a number of copies of the same type of neurons. 
+%This helps the model to have numerous neurons, while being able to process large complex models keeping same number of parameters. While writing programs in computer science we tend to write a function and keep calling it later on, the CNNs do a similar thing with the help of these large number of neurons. This in turn makes learning easier and reduces error. 
+CNN has been successfully applied in NLP tasks~\cite{dos2014deep, zeng2014relation}. 
 
-\section{CNN}\label{sec:cnn}
-They are widely used in the context of images~\cite{krizhevsky2012imagenet}. Although, the architecture can be used if sentences or paragraphs or documents can be represented as matrices or vectors, as it is the case in images. Word embedding matrices typically act as pixel matrices of images in the context of text classification. One of the reasons as to why CNNs are successful is because of its inherent property of keeping a number of copies of the same type of neurons. This helps the model to have numerous neurons, while being able to process large complex models keeping same number of parameters. While writing programs in computer science we tend to write a function and keep calling it later on, the CNNs do a similar thing with the help of these large number of neurons. This in turn makes learning easier and reduces error. CNN has been successfully applied in NLP tasks~\cite{dos2014deep, zeng2014relation}. 
-
-From the network point of view, CNN's are essentially several layers of convolutions (refer Figure~\ref{fig:CNN_layer} stacked upon each other with non-linear activation functions applied to the output of neurons in the same layer. 
+From the network point of view, CNN's are essentially several layers of convolutions (refer Figure~\ref{fig:CNN_layer}) stacked upon each other with non-linear activation functions applied to the output of neurons in the same layer. 
 \begin{figure}[!htb]
     \centering
     \includegraphics[scale=0.5]{Figures/cnn.png}
-    \caption{A CNN Layer, from~\cite{Goodfellow-et-al-2016}}
+    \caption{The figure illustrates the components of a typical convolutional neural network (CNN). The figure in the left views CNN as small number of complex layers, where within each layer a number of operations are applied. While on the right, CNN is viewed as a larger number of simple layers performing elementary operations.}
     \label{fig:CNN_layer}
 \end{figure}
 A typical layer in a CNN has three stages: (i) convolution operation (refer Figure~\ref{fig:convolution}), (ii) a non-linear activation like rectified linear unit and (iii) a pooling function which lists the set of output with certain statistical explanation of outputs of neighbourhood. These three stages accommodate in the standard feed-forward architecture of linear and non-linear activations. As we can see from Figure~\ref{fig:CNN_layer},
 the first stage is linear and the second layer when combined with the third stage form a non-linear activation. 
-One of the most used pooling statistics is \emph{max-pooling}, see Figure~\ref{fig:maxpool}. 
+One of the most used pooling statistics is \emph{max-pooling}. Most commonly, max-pooling is used as a downsampling technique with for instance, say $2 \times 2$ dimension filter and stride equal to 2 , (Figure~\ref{fig:maxpool}), which reduces the representation size and decreases computational and statistical burden on the next layers.
 
 
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.65]{Figures/max-pooling.png}
-    \caption{Max-pooling, Source: \url{http://cs231n.github.io/assets/cnn/maxpool.jpeg}}
+    % \centering
+    \includegraphics[width=0.6\textwidth, center]{Figures/max-pooling.png}
+    \caption{This figure illustrates the operation of max-pooling to summarize the feature maps.}
     \label{fig:maxpool}
 \end{figure}
 Figure~\ref{fig:convolution} illustrates that convolution is a binary operation that involves two operands namely, some text and a predefined kernel or filter, both of which are represented as matrices containing real numbers.
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.5]{Figures/convolution.png}
-    \caption{Convolution}
+    % \centering
+    \includegraphics[width=0.6\textwidth, center]{Figures/convolution.png}
+    \caption{This figure illustrates the operation of convolution on a 2D image. Boxes and arrows are drawn which indicate how the convolution takes place when the kernel/filter is applied to the upper-left region of the input.}
     \label{fig:convolution}
 \end{figure}
 Typically, the matrix representation of text comprises of the word vectors of tokens that constitute it, that is, the word embedding matrix. The objective of the kernel is to operate on all contiguous segments of the text using a sliding window and produce real numbers of cardinality that is equal to the number of contiguous segments (in text). This sequence of real numbers is called a feature map and is associated with a particular kernel being used to compute it. Generally, different kernels produce different feature maps that can be used as features for the task of text classification. The feature maps are then fed into a non-linear activation function as input, typically, softmax (function that takes $l$ real values as input and normalizes it into a probability distribution consisting of $l$ probabilities)   in our use case that outputs class or label probability estimates. The main idea here is to learn the matrix representations of kernels that in turn provide better feature maps, which optimizes the objective function efficiently. The learning takes place by predicting labels for training data and make adequate modifications to the kernel matrix through the back propagation algorithm that minimizes the loss function, that is, minimizes the conditional log-likelihood of training data. In the aforementioned abstract elucidation, we have omitted the technical details pertaining to CNNs like mathematical definition of convolution, the objective function and regularization. For the sake of completeness, we discuss these points in detail in the next section.
 
-\subsection{CNN Model Description}
+\paragraph{CNN Model Description}
 The architecture of a CNN model with two layers including one convolution layer and a densely connected output layer is depicted in Figure~\ref{fig:Cnn_one_layer}.
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[scale=0.45]{Figures/cnn-model-example.png}
-    \caption{Convolutional Neural Network with one convolution layer}
+    % \centering
+    % \includegraphics[scale=0.45]{Figures/cnn-model-example.png}
+    \includegraphics[width=1\textwidth,left]{Figures/cnn-model-example.png}
+    \caption{This figure illustrates a CNN with one convolution layer that is precisely used in the experimental setup in this thesis in the context of biomedical abstracts.}
     \label{fig:Cnn_one_layer}
 \end{figure}
 The basic component of the model is the word vector $\mathbf{x} \in \mathbb{R}^d$, where $d$ is the dimension of the word vectors. An abstract is represented as a matrix $A \in \mathbb{R}^{n \times d}$, where $n$ is the number of words in it. As mentioned earlier in the section~\ref{section:architecture}, each row corresponds to the word vector for the corresponding token or word. For the sake of brevity, we assume that the ground truth (label) for the abstract is $y \in \mathbb{R}^2$ such that $y_2 = 1$ and $y_1 = 0$ ($y_2 = 0$ and $y_1 = 1$) when we are training on a positive (negative) instance. This precisely aligns with the Figure~\ref{fig:Cnn_one_layer} with two output nodes of the final layer for the two classes (positive or negative) for each binary classifier. In this project we perform classification for 48 classes. 
@@ -316,10 +319,13 @@ where $\circ$ refers to hadamard product (element-wise multiplication) and $\mat
 % This operation is essential because during training, only $80\%$ of the edges are active, that is obviously not true when we test the model. 
 
 
-\section{RNN}
-RNNs are widely used in natural language models because of the ambiguity of it. As a human being, every time when we try to solve something we don't reboot the brain, instead we remember things and try to build on from that. The traditional neural networks cannot have persistence, for example if we want to predict what word would come next in the sentence or when we want to do a prediction of the next term in the sequence. In such cases we need the information of what happened previously stored in the network, the RNNs are able to do such computations because they have loops in the network as can be seen in the Figure~\ref{fig:rnnarch}~\cite{chung2015recurrent}. Whereas when we deal with natural language there is context required for predicting what comes next, sometimes there is a difference between that there is a big difference between the relevant information and the point where it is needed. RNNs do not always perform best when handling ``long term dependencies''~\cite{bengio1994learning}. To overcome this problem, Long Short Term Memory networks (LSTMs) were introduced by~\cite{hochreiter1997long} that are a special kind RNNs which can handle learning the long term dependencies. 
+\subsubsection{RNN}
+Recurrent neural networks~\cite{rumelhart1988learning} are used for processing sequential data. Since language is sequential in nature because when we deal with natural language there is context required for predicting what comes next. RNNs are widely used in natural language models as it used to process sequential data.
+As a human being, every time when we try to solve something we don't reboot the brain, instead we remember things and try to build on from that. The traditional neural networks cannot have persistence they always re-learn for scratch unlike human brain, for example if we want to predict what word would come next in the sentence or when we want to do a prediction of the next term in the sequence. In such cases we need the information of what happened previously stored in the network, the RNNs are able to do such computations because they have loops in the network as can be seen in the Figure~\ref{fig:rnnarch}~\cite{chung2015recurrent}. They try to keep track of the information that was learnt previously. 
+%Whereas when we deal with natural language there is context required for predicting what comes next, sometimes there is a difference between that there is a big difference between the relevant information and the point where it is needed. 
+RNNs do not always perform best when handling ``long term dependencies''~\cite{bengio1994learning}. To overcome this problem, Long Short Term Memory networks (LSTMs) were introduced by~\cite{hochreiter1997long} that are a special kind RNNs which can handle learning the long term dependencies. 
 
-\subsection{RNN Model Description}
+\paragraph{RNN Model Description}
 Figure~\ref{fig:rnnarch} introduces the RNN architecture where the input $x_t$ is fed is a hidden layer at time step $t$. 
 \begin{figure}
     \centering
@@ -373,7 +379,7 @@ To overcome the problem of long-term dependencies, LSTM was developed, that is, 
 \begin{figure}[!htb]
     \centering
     \includegraphics[scale=0.55]{Figures/lstm-unit.png}
-    \caption{A LSTM unit}
+    \caption{The detailed internals of a LSTM unit}
     \label{fig:lstmunit}
 \end{figure}
 
@@ -391,6 +397,6 @@ Finally, we explain the structure and the intuition behind LSTM units below:
 	\item \textbf{Output Gate: } Its objective to the separate final memory $c^{(t)}$ from the hidden state. $c^{(t)}$ might not necessarily contain only relevant information all the time that is required to be saved by the hidden state. Moreover, as hidden states are used in every gate of an LSTM unit, the output gate makes an assessment regarding the importance of the information to be stored in the hidden state $h_t$. This produces $o_t$ and this is to gate the point-wise $tanh$ of the memory.
 \end{itemize}
 
-The bi-directional version of RNN or LSTM, at each time-step $t$, maintains two hidden layers, one for left-to-right propagation and another for right-to-left propagation. Clearly, this consumes two times as much memory as RNNs. The final output $\widehat{y}_t$ is obtained by combining the scores computed by both the hidden states (refer to Figure~\ref{fig:lstmunit}).
+The bi-directional version of RNN or LSTM, at each time-step $t$, maintains two hidden layers, one for left-to-right propagation and another for right-to-left propagation. Clearly, this consumes two times as much memory as RNNs. The final output $\widehat{y_t}$ is obtained by combining the scores computed by both the hidden states.
 
 
