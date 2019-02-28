@@ -1,9 +1,12 @@
 \chapter{Results and Discussion}\label{chap: results}
 
-In this thesis, the research problem that we are solving is to automatically predict experimental metadata using scientific publications. For such a problem we dive into the realm of text classification because we use scientific publications (unstructured text). As mentioned in Chapter~\ref{chap:nnmethod} for classification in text a set of labels/categories are required. Therefore, for this purpose we used the NCBI disease corpus (explained in Section~\ref{section:data}) which contains a set of publication which has annotated disease mentions. Here, we only predict the metadata category disease, as it is a relevant term in the biomedical domain. 
+In this thesis, the research problem that we are solving is to automatically predict experimental metadata using scientific publications. For such a problem we dive into the realm of text classification because we use scientific publications (unstructured text). As mentioned in Chapter~\ref{chap:nnmethod} for classification in the text a set of labels/categories are required. Therefore, for this purpose, we used the NCBI disease corpus (explained in Section~\ref{section:data}) which contains a set of publications which has annotated disease mentions. Here, we only predict this metadata category disease, as it is a relevant term in the biomedical domain. 
 
+We first start this chapter by defining the evaluation metrics that have been presented in the results. Firstly these metrics are defined for binary classification and then using an example the metrics are defined for multi-label classification. 
+
+\addcontentsline{toc}{section}{Performance measures}
 \section*{Performance measures}
-For evaluating results from classification, we need measures to assess the performance of the method. Hence, for this purpose statistical measures are used based on confusion matrix shown in Table~\ref{tab:confusionmatrix}. In the confusion matrix, TP means number of times the positive class (1) is classified correctly, FP means the number of times the negative class (0) is misclassified as positive (1), TN means number of times the negative class is classified correctly and FN is the number of times the positive class (1) is classified incorrectly. 
+For evaluating results from classification, we need measures to assess the performance of the method. Hence, for this purpose statistical measures are used based on the confusion matrix shown in Table~\ref{tab:confusionmatrix}. In the confusion matrix, TP is the number of times the positive class (1) is classified correctly, FP means the number of times the negative class (0) is misclassified as positive (1), TN means the number of times the negative class is classified correctly and FN is the number of times the positive class (1) is classified incorrectly. 
 
 \begin{table}[!htb]
     \centering
@@ -21,12 +24,12 @@ For evaluating results from classification, we need measures to assess the perfo
 The metrics that have been used in this project are defined as follows: 
 \begin{itemize}
     \item Accuracy = $\frac{TP+TN}{TP + TN + FP + FN}$, which is the percentage of times where the model gives correct results. 
-    \item precision = $\frac{TP}{TP + FP}$, this is also known as the positive predictive value. This metric tells the percentage of relevant results among the predicted results. 
-    \item recall = $\frac{TP}{TP + FN}$, also known as sensitivity. This is the percentage of positive instances classified correctly among all the correctly classified instances. 
-    \item F1 score = $\frac{2*precision*recall}{precision + recall}$, this is helpful when we have class which has a smaller number of occurrences. It helps combining the trade-offs of precision and recall. 
+    \item Precision = $\frac{TP}{TP + FP}$, this is also known as the positive predictive value. This metric tells the percentage of relevant results among the predicted results. 
+    \item Recall = $\frac{TP}{TP + FN}$, also known as sensitivity. This is the percentage of positive instances classified correctly among all the correctly classified instances. 
+    \item F1 score = $\frac{2*precision*recall}{precision + recall}$, this is used when we have a class which has a smaller number of occurrences. It helps in combining the trade-offs of precision and recall. 
 \end{itemize}
 
-Now we define the metrics in terms of multi-label classification we use the information in the Table~\ref{tab:multilabelmetrics}:
+Now we define the metrics in terms of multi-label classification. For this purpose we use an example demonstrated in Table~\ref{tab:multilabelmetrics}:
 
 \begin{table}[!htb]
     \centering
@@ -52,9 +55,9 @@ Then we define the F$_1$ measure for the multi-label classification:
 \begin{equation}
     F_1 = \frac{1}{N}\sum_{i=1}^N\frac{2|\hat{y}^{(i)} \wedge y^{i}|}{|\hat{y}^{(i)}| + |y^{i}|}
 \end{equation}
-Overall, higher the value of accuracy, F$_1$ score the better the learning algorithm. 
+Overall, higher the value of accuracy and F$_1$ score the better the learning algorithm. 
 
-We start by presenting an elementary approach to this research problem. Then we move on to the comparison of results (judging mainly by the accuracy). The results are presented using the neural network model and it is compared with baseline methods. The comparison is divided into two parts (i) first, predicting the disease terms and (ii) second, predicting the super class of the disease terms.
+We start by presenting a baseline approach to this research problem. Then we move on to the comparison of results (judging mainly by the accuracy). The results are presented using the neural network model and they are compared with baseline multi-label classification methods. The comparison is divided into two parts (i) predicting the disease terms and (ii) predicting the superclass of the disease terms.
 
 The dataset was tested with three types of problem transformations (see Section~\ref{MLtranform}): (i) Binary Relevance (BR), (ii) Label Powerset (LP) and (iii) Classifier Chains (CC). The problem transformations were used from scikit-multilearn that is a library specific to multi-label classification built on top of the well-known scikit-learn.~\cite{2017arXiv171100046S}. The classifiers that were tested using these transformations were 
 \begin{itemize}
@@ -65,23 +68,22 @@ The dataset was tested with three types of problem transformations (see Section~
 \end{itemize}
 For each combination the evaluation metrics used were: accuracy and weighted F1 score. The classifiers used and the metrics were calculated using scikit-learn~\cite{scikit-learn}. 
 
-For the neural network approach we utilized the pretrained word embeddings - GloVe: Global Vectors for Word Representation~\cite{pennington2014glove} of length 300. For data preprocessing we used tokenizer API from Keras~\cite{chollet2015keras}. The CNN and BiLSTM architectures were used from PyTorch\footnote{\url{https://pytorch.org/}}.
-For validating the results using the Neural Networks we split the data into training and validation sets. The training set is 80\% of the whole data and the validation set is the rest 20\%. A similar train-test split was done for the baseline multi-label classification 80\%-20\%. The dropout rate has been kept $0.2$ in all the neural network models. 
+For the neural network approach, we utilized the pretrained word embeddings - GloVe: Global Vectors for Word Representation~\cite{pennington2014glove} of dimension 300. For data preprocessing we used tokenizer API from Keras~\cite{chollet2015keras}. The CNN and BiLSTM architectures were used from PyTorch\footnote{\url{https://pytorch.org/}}.
+For validating the results using the neural networks we split the data into training and validation sets. The training set is 80\% of the whole data and the validation set is the rest 20\%. A similar train-test split was done for the baseline multi-label classification 80\%-20\%. The dropout rate has been kept $0.2$ in all the neural network models. 
 
-\section{An elementary approach}
-In prediction of metadata, specifically diseases - an elementary approach would be to use a vocabulary of disease names, and perform a basic search in the documents. If we have a match it can be said that a particular publication talks about `xyz' disease. This would be a direct and trivial way to approach this problem. 
+\section{A baseline approach}
+In the prediction of metadata, specifically diseases - a baseline approach would be to use a vocabulary of disease names and perform a basic search in the documents. If we have a match it can be said that a particular publication talks about `xyz' disease. This would be a direct and trivial way to approach this problem. 
 
-In this case, since the dataset majorly uses the MeSH ontology, so all the values of disease names are downloaded\footnote{\url{http://bioportal.bioontology.org/ontologies/MESH/?p=classes&conceptid=root}}. After that, a direct matching is done using Flashtext~\cite{2017arXiv171100046S}. Firstly the downloaded diseases from the MeSH contains a lot of secondary information which is not essential, therefore columns with disease names are selected. This also includes the synonyms so that the matching is not biased for terms like `heart disease' and `cardiovascular disease'. Even after including the synonyms we could find only $44$ unique terms in the text, which is 7.5\% of the identified disease terms (588).
-
-
+In this case, the disease names from MeSH were downloaded\footnote{\url{http://bioportal.bioontology.org/ontologies/MESH/?p=classes&conceptid=root}}. After that, direct matching is done using Flashtext~\cite{2017arXiv171100046S}. 
+This also includes the synonyms so that the matching is not biased for terms like `heart disease' and `cardiovascular disease'. For example in the abstract text heart disease is mentioned but in the list of the downloaded disease terms, cardiovascular diseases are present.  Even after including the synonyms we could find only $44$ unique terms in the text, which is 7.5\% of the identified disease terms (588).
 
 \section{Predicting Disease Terms}
-For prediction of disease terms, the unique ID (explained in Section~\ref{section:data}) were used as labels after preprocessing - removing duplicates and characters if present. 
+For prediction of disease terms, the unique IDs (explained in Section~\ref{section:data}) are used as labels after preprocessing - removing duplicates and characters if present. 
 
-\subsection{Baseline Multi-label Classification}
-For baseline multi-label classification two types of feature extraction techniques were used: (i) TF-IDF and (ii) Bag of words representation (BoW). The results for these two techniques are presented in Tables~\ref{tab:resultdiseasetfidf} and~\ref{tab:resultdiseasecount}. For both the techniques the maximum feature length is kept 200. It can be seen that the MLP Classifier performs the best in both the techniques of feature extraction. 
+\subsection{Multi-label Classification}
+For baseline multi-label classification two types of feature extraction techniques were used: (i) TF-IDF and (ii) Bag of words representation (BoW). The results for these two techniques are presented in Tables~\ref{tab:resultdiseasetfidf} and~\ref{tab:resultdiseasecount}. For both the techniques the maximum feature length is kept at 200 (reason explain in Section~\ref{sec:discussion}). It can be seen that the MLP Classifier performs the best in both the techniques of feature extraction. 
 
-There is a difference in the performance if we compare the different feature extraction methods, the TF-IDF technique performs better. The TF-IDF normalizes the outputs which is why this technique is known to perform better when comes to the feature selection, it can be observed from the results as well. 
+There is a difference in the performance if we compare the different feature extraction methods, the TF-IDF technique performs better than BoW. The TF-IDF normalizes the outputs which is why this technique is known to perform better when comes to the feature selection, it can be observed from the results as well. 
 Since dataset has a large number of diseases - $588$, and a limited number of abstracts, the accuracy of predictions is not very high. The highest accuracy that we get here is $\approx 19\%$. 
 
 \begin{table}[!htb]
@@ -115,8 +117,8 @@ F1 score & 0.106 & 0.160 & 0.090 & 0.256 & 0.191 & 0.257 & 0.175 & 0.217 & 0.171
 \end{table}
 
 \subsection{Neural Network Methods}
-For the neural network method. Two models were trained - (i) BiLSTM and (ii) CNN. The embedding dimension in both cases is 300, where the input sequences are kept as 200 for which the results are discussed. The models are also retrained for a sequence length of 150 and 250 to check whether the accuracy increases or decreases. The models are trained using the Adam optimizer~\cite{kingma2014adam}. 
-The results of models are presented in Table~\ref{tab:DLdiseases}. The number of epochs are kept high because of a large number of labels. 
+For the neural network method, two models were trained - (i) BiLSTM and (ii) CNN. The embedding dimension in both cases is 300, where the input sequences are kept as 200 for which the results are discussed. The models are also retrained for a sequence length of 150 and 250 to check whether the accuracy increases or decreases. The models are trained using the Adam optimizer~\cite{kingma2014adam}. 
+The results of the models are presented in Table~\ref{tab:DLdiseases}. The number of epochs is kept high because of a large number of labels. 
 
 \begin{table}[!htb]
 \centering
@@ -134,9 +136,9 @@ The results of models are presented in Table~\ref{tab:DLdiseases}. The number of
 \label{tab:DLdiseases}
 \end{table}
 
-From Table~\ref{tab:bestdiseaseterms}, it can be seen that the CNN outperforms all the baseline methods and the BiLSTM. Whereas the BiLSTM has a lesser accuracy than highest baseline MLP classifier. One explanation would be that since the RNN treats the input as a sequence, and its a very long sequence, as it goes ahead working on word after word, it forgets what happened in the words before. Even though we're using a bidirectional RNN, maybe the left to right forgets what happened at the start, say by the time it reaches mid sequence, and the right to left forgets what it saw in the first (rightmost) terms by the time it reaches mid sequence too. 
+From Table~\ref{tab:bestdiseaseterms}, it can be seen that the CNN outperforms all the baseline methods and the BiLSTM. The BiLSTM has a lesser accuracy than the highest baseline MLP classifier. One explanation would be that since the RNN treats the input as a sequence, and its a very long sequence, as it goes ahead working on word after word, it forgets what happened in the words before. Even though we're using a bidirectional RNN, maybe the left to right forgets what happened at the start, say by the time it reaches mid sequence, and the right to left forgets what it saw in the first (rightmost) terms by the time it reaches mid sequence too. 
 
-Whereas in CNNs, the convolution kernels are time invariant so they cannot distinguish between different parts of the sequence. As a disadvantage, they cannot easily do inferences which require using context, and need to treat the input as a sequence. However in this case, it might not be needed. Abstracts may somewhere mention a particular disease keyword  which is enough on its own to detect which class it belongs to (and this detection requires no sequential treatment of input, which is similar to `find a word').
+Whereas in CNNs, the convolution kernels are time invariant so they cannot distinguish between different parts of the sequence. As a disadvantage, they cannot easily do inferences which require using context and need to treat the input as a sequence. However, in this case, it might not be needed. Abstracts may somewhere mention a particular disease keyword which is enough on its own to detect which class it belongs to (and this detection requires no sequential treatment of input, which is similar to `find a word').
 
 \begin{table}[!htb]
     \centering
@@ -152,28 +154,54 @@ Whereas in CNNs, the convolution kernels are time invariant so they cannot disti
     \label{tab:bestdiseaseterms}
 \end{table}
 
+Moreover, we see from Table~\ref{tab:DLdiseases} that when the sequence length increases to 250 the accuracy for CNN increase, this can be because the disease terms would be occurring towards the end of the abstract. For further checking this hypothesis we perform experiments when we only consider some part of the abstract (see Table~\ref{tab:DTsentences}). For this, the abstracts are split into sentences and only a subset of these sentences are used per abstract. 
+
+\begin{table}[!htb]
+    \centering
+\begin{tabular}{|c|c|c|}
+\hline
+ & Validation Accuracy & Sentences of abstract used \\ \hline
+\textbf{BiLSTM} & 0.074 & First two \\ \hline
+ & 0.073 & Last two \\ \hline
+ & \textbf{\textit{0.103}} & First and last \\ \hline
+\textbf{CNN} & 0.268 & First two \\ \hline
+ & 0.133 & Last two \\ \hline
+ & \textbf{\textit{0.28}} & First and last \\ \hline
+\end{tabular}
+    \caption{Results for predicting disease terms using deep neural nets when only some part of abstract is taken as input}
+    \label{tab:DTsentences}
+\end{table}
+
+From Table~\ref{tab:DTsentences} we see that the accuracy does not increase when we use the last two sentences as we mentioned above. Therefore, such a generalization is not correct. Another interesting observation, in this case, is that both BiLSTM and CNN have higher accuracy when the first and last sentence are present in the abstract. This would be due to the fact that human beings read and write the first and last sentence very carefully with a lot of information which aligns to the myth about how humans read and write. Moreover, it adheres to how humans do fast reading.
+
+%as we tend to focus mainly on the first and the last sentences more so researchers make an effort to write their first and last sentences to be crisp and full of information
+
 \section{Predicting Super Classes}
-Since the dataset we use involves the disease terms from the Medical Subject Headings (MeSH) ontology - which provides hierarchically-organized terminology for indexing the biomedical information. 
-In this experiment we use the MeSH tree structure\footnote{\url{https://meshb.nlm.nih.gov/treeView}} to map the annotated disease names to their super classes shown in Figure~\ref{fig:meshsuperclass}. 
+%In this experiment we predict the superclasses (or parent classes) of the disease terms that are annotated in the corpus. 
+ 
+In this experiment we use the MeSH tree structure\footnote{\url{https://meshb.nlm.nih.gov/treeView}} to map the annotated disease names to their superclasses (or parent classes) of the disease terms as shown in Figure~\ref{fig:meshsuperclass}. 
+Since the dataset we use involves the disease terms from the Medical Subject Headings (MeSH) ontology - which provides hierarchically-organized terminology for indexing diseases. For example the disease term ``Hemochromatosis'' belongs to the superclass `Nutritional and Metabolic Diseases [C18]' and `Congenital, Hereditary, and Neonatal Diseases and Abnormalities [C16]'. 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.45]{Figures/NN_prediction.png}
-    \caption{Mapping super classes in MeSH}
+    \includegraphics[scale=0.4]{Figures/NN_prediction.png}
+    \caption{Mapping superclasses in MeSH}
     \label{fig:meshsuperclass}
 \end{figure}
-To do so we use the unique ID of the disease terms as explained in Section~\ref{section:data} to perform a SPARQL query to map these terms (refer Listing~\ref{superclassquery}). The motivation behind this experiment setup is to reduce the number of labels that the method has to predict. 
-%By predicting super classes we want to depict a useful level of detail - the disease names are very detailed and there may be only a single example of a disease in the dataset.  The super classes are much more general, so they abstract away from the specific disease to predict a group of related diseases which may be more useful in some contexts. 
+To do so we use the unique ID of the disease terms as explained in Section~\ref{section:data} to perform a SPARQL query to map these terms (refer Listing~\ref{superclassquery}). 
+%The motivation behind this experimental setup is to reduce the number of labels that the method has to predict. 
+%By predicting super classes we want to depict a useful level of detail - the disease names are very detailed and there may be only a single example of a disease in the dataset.  The superclasses are much more general, so they abstract away from the specific disease to predict a group of related diseases which may be more useful in some contexts. 
 
-Originally we want to to map the disease terms to the \textbf{26} super classes as depicted in Figure~\ref{fig:meshsuperclass}, however the query returns 48 classes. 
-%The classes ``Disorders of Environmental Origin [C21], Animal Diseases [C22]'' are not identified as super classes for any diseases. 
+Originally we want to map the disease terms to the \textbf{26} superclasses as depicted in Figure~\ref{fig:meshsuperclass}, however, the query returns 48 classes. 
+%The classes ``Disorders of Environmental Origin [C21], Animal Diseases [C22]'' are not identified as superclasses for any diseases. 
 The additional 24 additional classes that are returned as a result of the query (Listing~\ref{superclassquery}) are mentioned below:
 \begin{spverbatim}
 `Physical Phenomena', `Genetic Phenomena', `Population Characteristics', `Nonsyndromic sensorineural hearing loss', `Diagnosis', `Physiological Phenomena', `Psychological Phenomena', `Cell Physiological Phenomena', `Investigative Techniques', `Biological Phenomena', `Behavior and Behavior Mechanisms', `Immune System Phenomena', `Reproductive and Urinary Physiological Phenomena', `Fluids and Secretions', `Cells', `Health Occupations', `Environment and Public Health', `Tissues', `Mental Disorders', `Behavioral Disciplines and Activities', `Musculoskeletal and Neural Physiological Phenomena', `Therapeutics', `Health Care Quality, Access, and Evaluation', `Natural Science Disciplines'. 
 \end{spverbatim}
 This happens due to the fact that one disease term is sometimes present under more than one parent class. 
-For example: the terms `Genetic Phenomena (ID: [G05])' and `Pathological Conditions, Signs and Symptoms [C23]' are super classes itself for the disease name `Chromosome Aberrations' as can be seen in \url{https://meshb.nlm.nih.gov/record/ui?ui=D002869}. 
-%For example: `Nonsyndromic sensorineural hearing loss'  this was not annotated to ``preferred label", which is why query couldn't map to the DOI of super class.
-\begin{lstlisting}[caption = SPARQL query to map \emph{one} disease name to the respective super class using the MeSH RDF endpoint, label = superclassquery]
+For example the terms `Genetic Phenomena (ID: [G05])' and `Pathological Conditions, Signs and Symptoms [C23]' are superclasses itself for the disease name `Chromosome Aberrations' as can be seen in \url{https://meshb.nlm.nih.gov/record/ui?ui=D002869}. 
+%For example: `Nonsyndromic sensorineural hearing loss'  this was not annotated to ``preferred label", which is why query couldn't map to the DOI of the superclass.
+
+\begin{lstlisting}[caption = SPARQL query to map \emph{one} disease name to the respective super class using the MeSH SPARQL endpoint (\url{https://id.nlm.nih.gov/mesh/query}), label = superclassquery]
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -195,11 +223,11 @@ SELECT DISTINCT ?p ?label ?uri
 \end{lstlisting}
 As a result of extracting the super classes for disease terms, the number of labels is reduced to 48. In this experiment we perform text classification for these 48 labels.
 
-\subsection{Baseline Multi-label Classification}
-The results for the baselines are present in Table~\ref{tab:resulttfidf}, here the features were extracted using TF-IDF. Another set of features were extracted using bag of word representation, the results are shown in the Table~\ref{tab:resultsBOW}. The maximum number of features for both the feature extraction techniques is kept to be 200. 
+\subsection{Multi-label Classification}
+The results for the baselines are present in Table~\ref{tab:resulttfidf}, here the features were extracted using TF-IDF. Another set of features were extracted using the bag of word representation, the results are shown in the Table~\ref{tab:resultsBOW}. The maximum number of features for both the feature extraction techniques is kept to be 200. 
 The Label Powerset transformation gives better performance for all three baseline classifiers. Overall, the Random forest classifier has the highest accuracy with problem transformation of Label Powerset. 
 
-In this setup the feature extraction using bag of words technique has a better performance when compared to TF-IDF. An explanation behind this would be that in a random forest classification method when given a set of features and labels it creates random subsets of features and building decision trees with the help of these subsets after which it makes predictions. 
+In this setup, the feature extraction using the bag of words technique has a better performance when compared to TF-IDF. An explanation behind this would be that in a random forest classification method when given a set of features and labels it, creates random subsets of features. Then building decision trees with the help of these subsets after which it makes predictions. 
 
 %For MLP classifier the obtained are shown in the Table~\ref{table:MLP}. It can be seen that the classifier performs very poorly and the accuracy is 0 for the transformations of Binary Relevance and classifier chains. 
 
@@ -233,7 +261,7 @@ F1 score & 0.605 & 0.642 & 0.572 & 0.676 & 0.632 & 0.662 & 0.669 & 0.712 & 0.668
 \end{table}
 
 \subsection{Neural Network Methods}
-For the neural network method.  Two models were trained - (i) BiLSTM and (ii)
+For the neural network method, two models were trained - (i) BiLSTM and (ii)
 CNN. The dimension of the embedding matrix in both cases is 300, where the input sequences of the abstract
 are kept as 200 for which the results are discussed. The models are also retrained
 for a sequence length of 150 and 250 to check whether the accuracy increases or
@@ -255,8 +283,8 @@ decreases. The models are trained using the Adam optimizer~\cite{kingma2014adam}
     \label{tab:DLsuperclass}
 \end{table}
 
-Here both the BiLSTM and CNN outperform all the baseline classifiers. Overall, the CNN has highest performance accuracy with the sequence length of 200. Another interesting observation is that when the sequence length is increased to 250 the accuracy of the BiLSTM increases, whereas one would think it should decrease because LSTMs tend to forget what happened previously or ahead when the sequence length is increased. 
-One explanation behind this could be that the disease words occur towards the end in the abstract. When we use the last two sentences per abstract for predicting the super class in BiLSTM the accuracy decreases to 48.4\%. Therefore, a generalization of such kind cannot be made. 
+Here both the BiLSTM and CNN outperform all the baseline classifiers. Overall, CNN has the highest performance accuracy with the sequence length of 200. Another interesting observation is that when the sequence length is increased to 250 the accuracy of the BiLSTM increases, whereas one would think it should decrease because LSTMs tend to forget what happened previously or ahead when the sequence length is increased. 
+One explanation behind this could be that the disease words occur towards the end in the abstract. When we use the last two sentences per abstract for predicting the superclass in BiLSTM the accuracy decreases to 48.4\% (see Table~\ref{tab:Supersentences}). Therefore, a generalization of such kind cannot be made. Similar to predicting disease terms here also the model performs better when the first and last sentence is taken as the input. 
 
 \begin{table}[!htb]
     \centering
@@ -272,10 +300,26 @@ One explanation behind this could be that the disease words occur towards the en
     \label{tab:bestsuperclass}
 \end{table}
 
-\section{Discussion}
-In this section we mainly discuss the results that we get using the neural network method, specifically for the sequence length of 200. The reason why we keep this as a gold standard input length is because it is closest to the mean length of the number of words in all the abstracts (refer Section~\ref{section:data}). Furthermore, we also observed from the results that by increasing the sequence length the performance does not significantly increase. Therefore, rather than training at a maximum length we use the mean length as it also saves the running time of the experiments.    
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{|c|c|c|}
+\hline
+ & Validation Accuracy & Sentences of abstract used \\ \hline
+\textbf{BiLSTM} & 0.518 & First two \\ \hline
+ & 0.484 & Last two \\ \hline
+ & \textbf{0.60} & First and last \\ \hline
+\textbf{CNN} & 0.76 & First two \\ \hline
+ & 0.771 & Last two \\ \hline
+ & \textbf{0.787} & First and last \\ \hline
+\end{tabular}
+    \caption{Results for predicting super classes using deep neural nets when only some part of abstract is taken as input}
+    \label{tab:Supersentences}
+\end{table}
 
-For this discussion, we pick three abstracts that are common in the validation set of both the disease term and super class experiment. Note that the text is preprocessed. 
+\section{Discussion}\label{sec:discussion}
+In this section, we mainly discuss the results that we obtain using the neural network method, specifically for the sequence length of 200. The reason why we keep this as a gold standard input length is that it is closest to the mean length of the number of words in all the abstracts (refer Section~\ref{section:data}). Furthermore, we also observed from the results that by increasing the sequence length the performance does not significantly increase. Therefore, rather than training at a maximum length we use the mean length as it also saves the running time of the experiments.    
+
+For this discussion, we pick three abstracts that are common in the validation set of both the disease term and superclass experiment. Note that the text is preprocessed. 
 
 \newenvironment{boxet}
     {\begin{center}
@@ -318,10 +362,10 @@ Actual Label: \emph{Super class} - [`Congenital, Hereditary, and Neonatal Diseas
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{} & \multicolumn{2}{c|}{CNN} \\ \hline
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Disease Name} & \multicolumn{1}{c|}{Super Class} \\ \hline
-Abstract 1 & [ ] & \begin{tabular}[c]{@{}l@{}}`Cardiovascular Diseases',\\  `Female Urogenital Diseases and Pregnancy Complications', \\  `Nervous System Diseases', `Skin and Connective Tissue Diseases', \\ `Nutritional and Metabolic Diseases', `Neoplasms', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities'\end{tabular} \\ \hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Predicted \\ Disease Names\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Predicted \\ Super Classes\end{tabular}} \\ \hline
+Abstract 1 &  & \begin{tabular}[c]{@{}l@{}}`Cardiovascular Diseases',\\  `Female Urogenital Diseases and Pregnancy Complications', \\  `Nervous System Diseases', `Skin and Connective Tissue Diseases', \\ `Nutritional and Metabolic Diseases', `Neoplasms', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities'\end{tabular} \\ \hline
 Abstract 2 & `Retinoblastoma' & \begin{tabular}[c]{@{}l@{}}`Congenital, Hereditary, and Neonatal Diseases and Abnormalities', \\ `Neoplasms', `Eye Diseases\end{tabular} \\ \hline
-Abstract 3 & [ ] & `Congenital, Hereditary, and Neonatal Diseases and Abnormalities' \\ \hline
+Abstract 3 &  & `Congenital, Hereditary, and Neonatal Diseases and Abnormalities' \\ \hline
 \end{tabular}
     \caption{Prediction by CNN for the three abstracts}
     \label{tab:predictions_cnn}
@@ -332,26 +376,26 @@ Abstract 3 & [ ] & `Congenital, Hereditary, and Neonatal Diseases and Abnormalit
 \begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{} & \multicolumn{2}{c|}{BiLSTM} \\ \hline
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Disease Name} & \multicolumn{1}{c|}{Super Class} \\ \hline
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Predicted\\ Disease Name\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Predicted\\ Super Class\end{tabular}} \\ \hline
 Abstract 1 & `Neoplasms' & \begin{tabular}[c]{@{}l@{}}`Cardiovascular Diseases', `Neoplasms', \\ `Skin and Connective Tissue Diseases'\end{tabular} \\ \hline
-Abstract 2 & [ ] & \begin{tabular}[c]{@{}l@{}}`Neoplasms', `Digestive System Diseases', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities', \\ `Skin and Connective Tissue Diseases'\end{tabular} \\ \hline
-Abstract 3 & [ ] & \begin{tabular}[c]{@{}l@{}}`Immune System Diseases', `Hemic and Lymphatic Diseases', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities', \\ `Cardiovascular Diseases', `Nutritional and Metabolic Diseases'\end{tabular} \\ \hline
+Abstract 2 &  & \begin{tabular}[c]{@{}l@{}}`Neoplasms', `Digestive System Diseases', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities', \\ `Skin and Connective Tissue Diseases'\end{tabular} \\ \hline
+Abstract 3 &  & \begin{tabular}[c]{@{}l@{}}`Immune System Diseases', `Hemic and Lymphatic Diseases', \\ `Congenital, Hereditary, and Neonatal Diseases and Abnormalities', \\ `Cardiovascular Diseases', `Nutritional and Metabolic Diseases'\end{tabular} \\ \hline
 \end{tabular}
     \caption{Prediction by BiLSTM for the three abstracts}
     \label{tab:preidictions_lstm}
 \end{table}
 
-The predictions of the three abstracts are presented in Tables~\ref{tab:predictions_cnn} and~\ref{tab:preidictions_lstm}. From the predictions it can be seen when we use a large number of labels in most of abstract there is no prediction at all for both CNN and BiLSTM. For this we need a larger data for the models to train on. If we get a larger annotated set, the model will be able to learn in a much better way as it would have seen a lot of examples for such a large set of labels.  
+The predictions of the three abstracts are presented in Tables~\ref{tab:predictions_cnn} and~\ref{tab:preidictions_lstm}. From the predictions, it can be seen when we use a large number of labels(588), in $\approx38\%$ abstracts in the validation set there is no prediction at all for both CNN and BiLSTM. For this, we need a bigger dataset for the models to train on. If we get a larger annotated set, the model will be able to learn in a much better way as it would have seen a good amount of examples for such a large set of labels.  
 
-Whereas when predicting a super class CNN is very accurate as it would have seen enough examples to learn which label would fit where. Similarly, BiLSTM is accurate more than 50\% of times overall even in some cases where CNN isn't, for example in Abstract 3. This could be because in this case the context of the language would be required more rather than in the other cases. For example: the abstract 3 talks about immune system diseases so in this case the BiLSTM learns this whereas the CNN would not be able to do that.  
-In some cases, no result comes because the last layer is softmax layer and the probability of each category would be less than 0.5, so the model does not output any disease.
+We observed that when predicting super classes CNN is very accurate(83\%) as it would have seen enough examples to learn which label would fit where. Similarly, BiLSTM is accurate more than 50\% of times overall even in some cases where CNN isn't, for example in Abstract 3. This could be because in this case the context of the language would be required more rather than in the other cases. For example, the abstract 3 talks about immune system diseases so in this case, the BiLSTM learns this whereas CNN would not be able to do that.  
+In some cases, no result comes because the last layer is the softmax layer and the probability of each category would be less than 0.5, so the model does not output any disease.
 
-For evaluate whether there is any bias present in the predictions for super classes, we perform an analysis of the frequency of the labels. First we compute the frequency of each label for the whole dataset, then specifically for the validation set. This is done for both the CNN and BiLSTM. 
-From the analysis, it was observed that the super class ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities'' has the highest frequency of occurrence (639). Therefore, even in the validation set for CNN and for BiLSTM both, it has the highest frequency. Note that in the validation set, the frequency is calculated separately for predictions and the actual labels. In the predictions the frequency was 139 whereas in the actual labels it occurs 125 times for BiLSTM. Similarly, for CNN the frequency in actual labels was 144 whereas the frequency is 126 in the predicted labels. From the frequency we observe that the model predicts better if the label has higher number of occurrences. 
+For evaluating whether there is any bias present in the predictions for superclasses, we perform an analysis of the frequency of the labels. First we compute the frequency of each label for the whole dataset, then specifically for the validation set. This is done for both the CNN and BiLSTM. 
+From the analysis, it was observed that the superclass ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities'' has the highest frequency of occurrence (639). Therefore, even in the validation set for CNN and for BiLSTM both, it has the highest frequency. Note that in the validation set, the frequency is calculated separately for predictions and the actual labels. In the predictions, the frequency was 139 whereas in the actual labels it occurs 125 times for BiLSTM. Similarly, for CNN the frequency in actual labels was 144 whereas the frequency is 126 in the predicted labels. From the frequency, we observe that the model predicts better if the label has a higher number of occurrences. 
 
-We perform a similar analysis for the less frequently occurring labels: ``Bacterial Infections and Mycoses''. This label has a frequency of 23 in the entire label set. After looking into the validation set for both CNN and BiLSTM, we observed that in CNN it is predicted 7 times but actually it occurs only once. For BiLSTM, it is predicted only once, but in actual labels it has a frequency of 7. Since the overall occurrence of ``Bacterial Infections and Mycoses'' is not higher the predictions are not as accurate as we observe before with the label ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities''.  
+We perform a similar analysis for the less frequently occurring labels: ``Bacterial Infections and Mycoses''. This label has a frequency of 23 in the entire label set. After looking into the validation set for both CNN and BiLSTM, we observed that in CNN it is predicted 7 times but actually it occurs only once. For BiLSTM, it is predicted only once, but in actual labels, it has a frequency of 7. Since the overall occurrence of ``Bacterial Infections and Mycoses'' is not higher the predictions are not as accurate as we observe before with the label ``Congenital, Hereditary, and Neonatal Diseases and Abnormalities''.  
 
-From this analysis we see that a large set of disease names has one particular super class therefore there is a bias when we try to predict these super classes. Moreover, the input corpus contains 793 abstracts in total, which only gives a particular subset of diseases. Hence there is a bias in prediction related to the frequency of occurrences when extracting the super classes. From the results we saw that CNN gives promising results in both experimental setups -- predicting disease terms and predicting super classes. If we want to involve more metadata categories like tissue, cell line etc, it would be easily incorporated in the model as we train a multi-label classification problem. 
+From this analysis, we see that a large set of disease names has one particular, therefore, there is a bias when we try to predict these superclasses. Moreover, the input corpus contains 793 abstracts in total, which only gives a particular subset of diseases. Hence there is a bias in prediction related to the frequency of occurrences when extracting the superclasses. From the results, we saw that CNN gives promising results in both experimental setups -- predicting disease terms and predicting superclasses. If we want to involve more metadata categories like tissue, cell line etc, it would be easily incorporated in the model as we train a multi-label classification problem. 
 
 
 
@@ -448,18 +492,18 @@ Weighted Precision score & 0.369                                 & 0.335        
 
 
 \section{Baseline Method}
-In the basic method which involves prediction of metadata, specifically diseases. A baseline method would be to use a vocabulary of disease names, and perform a basic search in the documents. If we have a match it can be said that a particular publication talks about `xyz' disease. This would be a direct and trivial way to approach this problem. 
+In the basic method which involves prediction of metadata, specifically diseases. A baseline method would be to use a vocabulary of disease names and perform a basic search in the documents. If we have a match it can be said that a particular publication talks about `xyz' disease. This would be a direct and trivial way to approach this problem. 
 
-In this case, since the dataset uses the MeSH ontology, so all the values of disease names is downloaded\footnote{\url{http://bioportal.bioontology.org/ontologies/MESH/?p=classes&conceptid=root}}. After that, a direct matching is done using Flashtext~\cite{2017arXiv171100046S}. Firstly the downloaded diseases from the MeSH contains a lot of secondary information which is not essential, therefore columns with disease names are selected. This also includes the synonyms so that the matching is not biased for terms like `heart disease' and `cardiovascular disease'. Even after including the synonyms we could find only $44$ unique terms in the text, which is $\approx$2\% of the diseases identified disease terms. 
+In this case, since the dataset uses the MeSH ontology, so all the values of disease names are downloaded\footnote{\url{http://bioportal.bioontology.org/ontologies/MESH/?p=classes&conceptid=root}}. After that, a direct matching is done using Flashtext~\cite{2017arXiv171100046S}. Firstly the downloaded diseases from the MeSH contains a lot of secondary information which is not essential, therefore columns with disease names are selected. This also includes the synonyms so that the matching is not biased for terms like `heart disease' and `cardiovascular disease'. Even after including the synonyms we could find only $44$ unique terms in the text, which is $\approx$2\% of the diseases identified disease terms. 
 %write the results
 
 \section{Predicting Super class}
-Prediction of super class means using the tree hierarchy the Mesh ontology, and find the super class of all the disease terms~\footnote{\url{https://meshb.nlm.nih.gov/treeView}}. In the super class of diseases we only have 26 targets, then it becomes fairly easy for the model to predict one of these 26 classes. 
+Prediction of super class means using the tree hierarchy the Mesh ontology, and find the superclass of all the disease terms~\footnote{\url{https://meshb.nlm.nih.gov/treeView}}. In the superclass of diseases we only have 26 targets, then it becomes fairly easy for the model to predict one of these 26 classes. 
 
 
 
 \section{Predicting the disease terms}
-Predicting disease class involves, selecting the disease terms that were annotated to the Disease Class (Refer Table~\ref{table: input_stats}). From the Table~\ref{table: input_stats} we see that the number of diseases in this case would be 571, which is more difficult than identifying super classes. 
+Predicting disease class involves, selecting the disease terms that were annotated to the Disease Class (Refer Table~\ref{table: input_stats}). From the Table~\ref{table: input_stats} we see that the number of diseases, in this case, would be 571, which is more difficult than identifying superclasses. 
 
 \section{Discussion}
 \fi
