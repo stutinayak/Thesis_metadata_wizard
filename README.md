@@ -13,3 +13,6 @@ prediction, we use a Convolutional Neural Network (CNN) and a Bidirectional
 Long-short term memory network (BiLSTM). Additionally, we also perform a
 comparison with multi-label classication methods. The best results we get are
 from CNN. We focus our attention on the NCBI Disease Corpus.
+
+### Link to the presentation
+[Metadata Wizard](https://docs.google.com/presentation/d/1JDYURpIob2mL3sZCPlUrb9qIVTTXw9KoGeiL4YrJd-g/edit?usp=sharing)
